@@ -11,7 +11,7 @@ def f(x: float) -> float:
     return 3 * (x ** 4) + (x - 1) ** 2
 
 
-def mid_point(a: float, b: float, epsilon: float, sigma: float):
+def mid_point(a: float, b: float, epsilon: float, sigma: float) -> float:
     """Метод средней точки"""
     iter_count = 0
     logging.info(f"Начало работы алгоритма.\na = {a}, b = {b}, epsilon = {epsilon}, sigma = {sigma}\n")
