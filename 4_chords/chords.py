@@ -7,8 +7,8 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 logging.basicConfig(format='%(message)s', filemode="w", filename='chords.log', encoding='utf-8',
                     level=logging.INFO)
 
-interval = [0, 1]
-sigma = 0.001
+interval = [0, 4]
+sigma = 0.01
 epsilon = 0.01
 ROUND_NUMBER = 3
 DX = 1e-6
@@ -17,7 +17,6 @@ DX = 1e-6
 def f(x) -> float:
     """Целевая функция."""
     return 3 * x ** 4 + (x - 1) ** 2
-
 
 def chords_method(func, a: float, b: float,  sigma: float, epsilon: float, round_number=3) -> Optional[float]:
     """Метод хорд."""
@@ -51,8 +50,5 @@ def chords_method(func, a: float, b: float,  sigma: float, epsilon: float, round
         iter_count += 1
 
 
-
-
-
-chords_method(f, 0.3, 2, sigma, epsilon)
+# chords_method(f, 0.3, 2, sigma, epsilon)
 chords_method(f, interval[0], interval[1], sigma, epsilon)
