@@ -1,7 +1,7 @@
 import logging
 
 file = '../half_divide.log'
-logging.basicConfig(format='%(message)s', filemode="w", filename='../half_divide.log', encoding='utf-8',
+logging.basicConfig(format='%(message)s', filemode="w", filename='half_divide.log', encoding='utf-8',
                     level=logging.INFO)
 
 interval = [0, 1]
