@@ -4,9 +4,7 @@ file = '../half_divide.log'
 logging.basicConfig(format='%(message)s', filemode="w", filename='../half_divide.log', encoding='utf-8',
                     level=logging.INFO)
 
-a = 1
-b = 5
-interval = [a, b]
+interval = [0, 1]
 sigma = 0.001
 epsilon = 0.01
 ROUND_NUMBER = 3
@@ -25,9 +23,9 @@ def half_divide(a: float, b: float, sigma: float, epsilon: float, round_number=3
     iter_count = 1
 
     while abs(delta) > 2 * epsilon:
-        c = float((a + b) / 2)
-        x_1 = float(c - (sigma / 2))
-        x_2 = float(c + (sigma / 2))
+        c = (a + b) / 2
+        x_1 = c - (sigma / 2)
+        x_2 = c + (sigma / 2)
         f_x_1 = f(x_1)
         f_x_2 = f(x_2)
         if f_x_1 < f_x_2:
@@ -51,8 +49,9 @@ def half_divide(a: float, b: float, sigma: float, epsilon: float, round_number=3
         iter_count += 1
 
     result = float(a + b) / 2
-    logging.info('Результат метода половинного сечения: {}'.format(round(result, round_number)))
+    logging.info('Результат метода половинного сечения: {}\n\n'.format(round(result, round_number)))
     return result
 
+half_divide(0.3, 2, sigma, epsilon)
+half_divide(interval[0], interval[1], sigma, epsilon)
 
-half_divide(a, b, sigma, epsilon)
