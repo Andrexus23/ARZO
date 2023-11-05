@@ -12,6 +12,7 @@ ROUND_NUMBER = 3
 
 
 def f(x: float) -> float:
+    """Целевая функция: 3 * x ^ 4 + (x - 1) ^ 2"""
     return 3 * (x ** 4) + (x - 1) ** 2
 
 
