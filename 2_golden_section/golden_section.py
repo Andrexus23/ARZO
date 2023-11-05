@@ -1,4 +1,5 @@
 import logging
+from typing import Tuple, Any
 
 file = '../golden_section.log'
 logging.basicConfig(format='%(message)s', filename=file, encoding='utf-8', level=logging.INFO)
@@ -10,7 +11,7 @@ def f(x: float) -> float:
     return 3 * (x ** 4) + (x - 1) ** 2
 
 
-def golden_section(a: float, b: float, epsilon: float) -> float:
+def golden_section(a: float, b: float, epsilon: float) -> tuple[float, float]:
     """Метод золотого сечения"""
     lambda_ = 0.618
     delta = abs(b - a)
@@ -45,8 +46,9 @@ def golden_section(a: float, b: float, epsilon: float) -> float:
             f_x_2 = f(x_2)
         iter_count += 1
     result = (a + b) / 2
-    logging.info(f"Результат работы алгоритма: x = {round(result, ROUND_NUMBER)}, f(x) = {round(f(result), ROUND_NUMBER)}")
-    return result
+    f_x = f(result)
+    logging.info(f"Результат работы алгоритма: x = {round(result, ROUND_NUMBER)}, f(x) = {round(f_x, ROUND_NUMBER)}")
+    return result, f_x
 
 
-x = golden_section(0.0, 4.0, 0.1)
+x, y = golden_section(0.0, 4.0, 0.1)

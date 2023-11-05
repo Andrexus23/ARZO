@@ -1,5 +1,6 @@
 import logging
 import warnings
+from typing import Tuple, Any
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 from scipy.misc import derivative
@@ -10,11 +11,12 @@ logging.basicConfig(format='%(message)s', filename=file, encoding='utf-8', level
 DX = 1e-6
 ROUND_NUMBER = 3
 
+
 def f(x: float) -> float:
     return 3 * (x ** 4) + (x - 1) ** 2
 
 
-def newton_raphson(b: float, sigma: float) -> float:
+def newton_raphson(b: float, sigma: float) -> tuple[float, float]:
     k = 0
     x_k = b
     logging.info(f"Начало работы алгоритма.\nx_k = {b}, sigma = {sigma}")
@@ -27,8 +29,9 @@ def newton_raphson(b: float, sigma: float) -> float:
             break
         x_k = x_k - df_x_k / ddf_x_k
         k += 1
-    logging.info(f"Результат работы алгоритма: x = {round(x_k, ROUND_NUMBER)}, f(x) = {round(f(x_k), ROUND_NUMBER)}")
-    return x_k
+    f_x = f(x_k)
+    logging.info(f"Результат работы алгоритма: x = {round(x_k, ROUND_NUMBER)}, f(x) = {round(f_x, ROUND_NUMBER)}")
+    return x_k, f_x
 
 
-x = newton_raphson(4.0, 0.01)
+x, y = newton_raphson(4.0, 0.01)
