@@ -1,6 +1,5 @@
 import logging
 import warnings
-from typing import Tuple, Any
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 from scipy.misc import derivative

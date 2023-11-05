@@ -1,5 +1,4 @@
 import logging
-from typing import Tuple, Any
 
 file = '../golden_section.log'
 logging.basicConfig(format='%(message)s', filename=file, encoding='utf-8', level=logging.INFO)
