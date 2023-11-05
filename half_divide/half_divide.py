@@ -1,4 +1,5 @@
 import logging
+from typing import Tuple
 
 file = '../half_divide.log'
 logging.basicConfig(format='%(message)s', filemode="w", filename='half_divide.log', encoding='utf-8',
@@ -15,7 +16,7 @@ def f(x) -> float:
     return 3 * x ** 4 + (x - 1) ** 2
 
 
-def half_divide(a: float, b: float, sigma: float, epsilon: float, round_number=3) -> float:
+def half_divide(a: float, b: float, sigma: float, epsilon: float, round_number=3) -> Tuple[float, float]:
     """Метод половинного деления."""
     logging.info('Запущен метод половинного сечения. '
                  'Интервал: [{}, {}]; sigma = {}; epsilon = {}'.format(a, b, sigma, epsilon))
@@ -49,9 +50,10 @@ def half_divide(a: float, b: float, sigma: float, epsilon: float, round_number=3
         iter_count += 1
 
     result = float(a + b) / 2
+    f_result = f(result)
     logging.info('Результат метода половинного сечения: {}\n\n'.format(round(result, round_number)))
-    return result
+    return result, f_result
 
-half_divide(0.3, 2, sigma, epsilon)
-half_divide(interval[0], interval[1], sigma, epsilon)
+# half_divide(0.3, 2, sigma, epsilon)
+# half_divide(interval[0], interval[1], sigma, epsilon)
 
