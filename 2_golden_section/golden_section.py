@@ -1,6 +1,9 @@
 import logging
 
-logging.basicConfig(format='%(message)s', filename='../golden_section.log', encoding='utf-8', level=logging.INFO)
+file = '../golden_section.log'
+logging.basicConfig(format='%(message)s', filename=file, encoding='utf-8', level=logging.INFO)
+
+ROUND_NUMBER = 3
 
 
 def f(x: float) -> float:
@@ -18,21 +21,22 @@ def golden_section(a: float, b: float, epsilon: float) -> float:
     f_x_2 = f(x_2)
     iter_count = 0
     while delta > 2 * epsilon:
-        logging.info(f"Итерация №{iter_count}.\nx_1 = {x_1}, x_2 = {x_2}, f_x_1 = {f_x_1}, f_x_2 = {f_x_2}\n")
+        logging.info(f"Итерация №{iter_count}.\nx_1 = {round(x_1, ROUND_NUMBER)}, x_2 = {round(x_2, ROUND_NUMBER)}, "
+                     f"f_x_1 = {round(f_x_1, ROUND_NUMBER)}, f_x_2 = {round(f_x_2, ROUND_NUMBER)}")
         if f_x_1 < f_x_2:
             b = x_2
             delta = abs(b - a)
-            logging.info(f"f_x_1 < f_x_2\na = {a}, b = {b}, delta = {delta}\n")
+            logging.info(f"f_x_1 < f_x_2\na = {round(a, ROUND_NUMBER)}, b = {round(b, ROUND_NUMBER)}, delta = {round(delta, ROUND_NUMBER)}")
             if delta <= 2 * epsilon:
                 break
             x_2 = x_1
             f_x_2 = f_x_1
             x_1 = b - lambda_ * delta
             f_x_1 = f(x_1)
-        if f_x_1 > f_x_2:
+        elif f_x_1 > f_x_2:
             a = x_1
             delta = abs(b - a)
-            logging.info(f"f_x_1 > f_x_2\na = {a}, b = {b}, delta = {delta}\n")
+            logging.info(f"f_x_1 > f_x_2\na = {round(a, ROUND_NUMBER)}, b = {round(b, ROUND_NUMBER)}, delta = {round(delta, ROUND_NUMBER)}")
             if delta <= 2 * epsilon:
                 break
             x_1 = x_2
@@ -41,7 +45,7 @@ def golden_section(a: float, b: float, epsilon: float) -> float:
             f_x_2 = f(x_2)
         iter_count += 1
     result = (a + b) / 2
-    logging.info(f"Результат работы алгоритма: x = {result}, f(x) = {f(result)}\n")
+    logging.info(f"Результат работы алгоритма: x = {round(result, ROUND_NUMBER)}, f(x) = {round(f(result), ROUND_NUMBER)}")
     return result
 
 
