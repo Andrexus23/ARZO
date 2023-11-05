@@ -12,12 +12,12 @@ ROUND_NUMBER = 3 #
 
 
 def f(x) -> float:
-    """Целевая функция."""
+    """Целевая функция: 3 * x^4 + (x - 1)^2"""
     return 3 * x ** 4 + (x - 1) ** 2
 
 
 def half_divide(a: float, b: float, sigma: float, epsilon: float, round_number=3) -> Tuple[float, float]:
-    """Метод половинного деления."""
+    """Метод половинного деления"""
     logging.info('Запущен метод половинного сечения. '
                  'Интервал: [{}, {}]; sigma = {}; epsilon = {}'.format(a, b, sigma, epsilon))
     delta = b - a

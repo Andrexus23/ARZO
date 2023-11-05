@@ -37,6 +37,13 @@ class PlotBuilder:
         self._plt.plot(x_array, y_array)
         self._plt.xlabel('x')
         self._plt.ylabel('y')
+        self._plt.title(
+            method.__doc__ + '\n' +
+            f.__doc__ + '\n' +
+            'Интервал: [{}, {}]; '.format(round(a, self.round_number), round(b, self.round_number)) +
+            'Epsilon = {}; '.format(epsilon) +
+            'Sigma = {}'.format(sigma)
+        )
         plt.plot(x_0, f_x0, marker='o', color='red', ms = 8)
         plt.text(x_0 - 0.15, f_x0 + 1, s='(' + str(round(x_0, self.round_number)) + ', ' + str(round(f_x0, self.round_number)) + ')')
         self._plt.savefig(im_path, dpi = self._dpi)
