@@ -5,9 +5,9 @@ logging.basicConfig(format='%(message)s', filemode="w", filename='half_divide.lo
                     level=logging.INFO)
 
 interval = [0, 1]
-sigma = 0.001
-epsilon = 0.01
-ROUND_NUMBER = 3
+sigma = 0.001 # погрешность
+epsilon = 0.1 # точность
+ROUND_NUMBER = 3 #
 
 
 def f(x) -> float:
