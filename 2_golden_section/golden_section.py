@@ -26,7 +26,7 @@ def golden_section(a: float, b: float, epsilon: float) -> float:
         if f_x_1 < f_x_2:
             b = x_2
             delta = abs(b - a)
-            logging.info(f"f_x_1 < f_x_2\na = {round(a, ROUND_NUMBER)}, b = {round(b, ROUND_NUMBER)}, delta = {round(delta, ROUND_NUMBER)}")
+            logging.info(f"f_x_1 < f_x_2\nInterval = [{round(a, ROUND_NUMBER)}, {round(b, ROUND_NUMBER)}] delta = {round(delta, ROUND_NUMBER)}")
             if delta <= 2 * epsilon:
                 break
             x_2 = x_1
@@ -36,7 +36,7 @@ def golden_section(a: float, b: float, epsilon: float) -> float:
         elif f_x_1 > f_x_2:
             a = x_1
             delta = abs(b - a)
-            logging.info(f"f_x_1 > f_x_2\na = {round(a, ROUND_NUMBER)}, b = {round(b, ROUND_NUMBER)}, delta = {round(delta, ROUND_NUMBER)}")
+            logging.info(f"f_x_1 > f_x_2\nInterval = [{round(a, ROUND_NUMBER)}, {round(b, ROUND_NUMBER)}], delta = {round(delta, ROUND_NUMBER)}")
             if delta <= 2 * epsilon:
                 break
             x_1 = x_2
