@@ -11,7 +11,7 @@ def f(x: float) -> float:
     return 3 * (x ** 4) + (x - 1) ** 2
 
 
-def golden_section(a: float, b: float, epsilon: float) -> tuple[float, float]:
+def golden_section(a: float, b: float, epsilon: float) -> tuple[float, float, float]:
     """Метод золотого сечения"""
     lambda_ = 0.618
     delta = abs(b - a)
@@ -48,7 +48,7 @@ def golden_section(a: float, b: float, epsilon: float) -> tuple[float, float]:
     result = (a + b) / 2
     f_x = f(result)
     logging.info(f"Результат работы алгоритма: x = {round(result, ROUND_NUMBER)}, f(x) = {round(f_x, ROUND_NUMBER)}")
-    return result, f_x
+    return result, f_x, sigma
 
 
-x, y = golden_section(0.0, 4.0, 0.1)
+# x, y = golden_section(0.0, 4.0, 0.1)

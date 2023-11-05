@@ -17,6 +17,7 @@ def f(x: float) -> float:
 
 
 def newton_raphson(b: float, sigma: float) -> tuple[float, float]:
+    """Метод Ньютона-Рафсона"""
     k = 0
     x_k = b
     logging.info(f"Начало работы алгоритма.\nx_k = {b}, sigma = {sigma}")

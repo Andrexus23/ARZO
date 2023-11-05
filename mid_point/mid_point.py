@@ -16,7 +16,7 @@ def f(x: float) -> float:
     return 3 * (x ** 4) + (x - 1) ** 2
 
 
-def mid_point(a: float, b: float, epsilon: float, sigma: float) -> tuple[float, float]:
+def mid_point(a: float, b: float, sigma: float, epsilon: float) -> tuple[float, float]:
     """Метод средней точки"""
     iter_count = 0
     logging.info(f"Начало работы алгоритма.\nInterval = [{round(a, ROUND_NUMBER)}, {round(b, ROUND_NUMBER)}], epsilon = {epsilon}, sigma = {sigma}")
