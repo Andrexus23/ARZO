@@ -166,6 +166,12 @@
       <height>24</height>
      </rect>
     </property>
+    <property name="minimum">
+     <double>-1000000000.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>1000000000.000000000000000</double>
+    </property>
    </widget>
    <widget class="QDoubleSpinBox" name="doubleSpinBox_B">
     <property name="geometry">
@@ -175,6 +181,12 @@
       <width>62</width>
       <height>24</height>
      </rect>
+    </property>
+    <property name="minimum">
+     <double>-1000000000.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>1000000000.000000000000000</double>
     </property>
    </widget>
    <widget class="QPlainTextEdit" name="logTextEdit">
