@@ -1,14 +1,15 @@
 import sys
 import random
 import matplotlib
+from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
+
 matplotlib.use('Qt5Agg')
 from PyQt5 import QtCore, QtWidgets
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 
-class MplCanvas(FigureCanvas):
 
-    def __init__(self, parent=None, width=5, height=4, dpi=200):
-        fig = Figure(figsize=(width, height), dpi=dpi)
-        self.axes = fig.add_subplot(111)
-        super(MplCanvas, self).__init__(fig)
+class MplCanvas(FigureCanvasQTAgg):
+
+    def __init__(self, figure):
+        super(MplCanvas, self).__init__(figure)

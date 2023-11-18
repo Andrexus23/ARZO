@@ -34,6 +34,7 @@ class PlotBuilder:
         y_array = [target_function(x_value) for x_value in x_array]
 
         x_0, f_x0 = method(lineEdit, target_function, a, b, sigma, epsilon)
+        self._plt.clf()
 
         self._plt.grid(True)
         self._plt.plot(x_array, y_array)
@@ -48,7 +49,7 @@ class PlotBuilder:
         )
         self._plt.plot(x_0, f_x0, marker='o', color='red', ms = 8)
         self._plt.text(x_0 - 0.15, f_x0 + 1, s='(' + str(round(x_0, self.round_number)) + ', ' + str(round(f_x0, self.round_number)) + ')')
-        self._plt.savefig(im_path, dpi=self._dpi)
+        # self._plt.savefig(im_path, dpi=self._dpi)
         return x_0, f_x0, plt
 
 
