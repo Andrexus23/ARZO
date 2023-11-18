@@ -1,1 +1,2 @@
 ROUND_NUMBER = 5
+DPI = 200
