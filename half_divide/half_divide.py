@@ -1,7 +1,7 @@
 import logging
 from typing import Tuple
 
-from PyQt5.QtWidgets import QLineEdit, QPlainTextEdit
+from PyQt5.QtWidgets import QPlainTextEdit
 
 
 def f(x) -> float:

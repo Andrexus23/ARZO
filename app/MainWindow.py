@@ -4,6 +4,10 @@ from typing import Optional
 from PyQt5.QtWidgets import QMainWindow
 
 from half_divide import half_divide
+from golden_section import golden_section
+from mid_point import mid_point
+from chords import chords_method
+from newton_raphson import newton_raphson
 from constants.constants import *
 
 class Algorithm(Enum):
@@ -76,11 +80,27 @@ class MainWindow(QMainWindow):
                 self.epsilon, ROUND_NUMBER,
             )
         elif self.algo == Algorithm.GOLD_SECTION:
-            pass
+            x, fx, sigma = golden_section(
+                self.ui.logTextEdit,
+                self.a, self.b,
+                self.epsilon,
+            )
         elif self.algo == Algorithm.MID_POINT:
-            pass
+            x, fx = mid_point(
+                self.ui.logTextEdit,
+                self.a, self.b, self.sigma,
+                self.epsilon
+            )
         elif self.algo == Algorithm.NEWTON_RAPFSON:
-            pass
+            x, fx = newton_raphson(
+                self.ui.logTextEdit,
+                self.b, self.sigma
+            )
         elif self.algo == Algorithm.CHORDS:
+            # x, fx = chords_method(
+            #     self.ui.logTextEdit,
+            #     self.a, self.b, self.sigma,
+            #     self.epsilon
+            # )
             pass
         # ...
