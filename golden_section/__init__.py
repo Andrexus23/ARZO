@@ -1,0 +1,1 @@
+from golden_section.golden_section import golden_section
