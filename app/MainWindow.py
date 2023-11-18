@@ -110,7 +110,7 @@ class MainWindow(QMainWindow):
                 target_function=f,
             )
             self.plt = plt
-            self.canvas = MplCanvas(plt=self.plt)
+            self.canvas = MplCanvas(figure=self.plt.gcf())
             self.plotWindow.setCentralWidget(self.canvas)
             self.plotWindow.show()
 

@@ -11,5 +11,5 @@ from matplotlib.figure import Figure
 
 class MplCanvas(FigureCanvasQTAgg):
 
-    def __init__(self, plt):
-        super(MplCanvas, self).__init__(plt.gcf())
+    def __init__(self, figure):
+        super(MplCanvas, self).__init__(figure)
