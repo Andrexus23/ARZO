@@ -98,8 +98,9 @@ class MainWindow(QMainWindow):
     def runAlgo(self):
         """Запуск вычислительного алгоритма."""
         self.ui.logTextEdit.clear()
+        plot_tmp = None
         if self.algo == Algorithm.HALF_DIVIDE:
-            x, fx, plt = self.plotBuilder.build_for_half_divide(
+            x, fx, plot_tmp = self.plotBuilder.build_plot(
                 lineEdit=self.ui.logTextEdit,
                 a=self.a,
                 b=self.b,
@@ -109,37 +110,52 @@ class MainWindow(QMainWindow):
                 method=half_divide,
                 target_function=f,
             )
-            self.plt = plt
-            self.canvas = MplCanvas(figure=self.plt.gcf())
-            self.plotWindow.setCentralWidget(self.canvas)
-            self.plotWindow.show()
-
         elif self.algo == Algorithm.GOLD_SECTION:
-            x, fx, sigma = golden_section(
-                self.ui.logTextEdit,
-                f,
-                self.a, self.b,
-                self.epsilon,
+            x, fx, plot_tmp = self.plotBuilder.build_plot(
+                lineEdit=self.ui.logTextEdit,
+                a=self.a,
+                b=self.b,
+                visible_range=(-1, 1.5),
+                sigma=None,
+                epsilon=self.epsilon,
+                method=golden_section,
+                target_function=f,
             )
         elif self.algo == Algorithm.MID_POINT:
-            x, fx = mid_point(
-                self.ui.logTextEdit,
-                f,
-                self.a, self.b, self.sigma,
-                self.epsilon
+            x, fx, plot_tmp = self.plotBuilder.build_plot(
+                lineEdit=self.ui.logTextEdit,
+                a=self.a,
+                b=self.b,
+                visible_range=(-1, 1.5),
+                sigma=self.sigma,
+                epsilon=self.epsilon,
+                method=mid_point,
+                target_function=f,
             )
         elif self.algo == Algorithm.NEWTON_RAPFSON:
-            x, fx = newton_raphson(
-                self.ui.logTextEdit,
-                f,
-                self.b, self.sigma
+            x, fx, plot_tmp = self.plotBuilder.build_plot(
+                lineEdit=self.ui.logTextEdit,
+                a=None,
+                b=self.b,
+                visible_range=(-1, 1.5),
+                sigma=self.sigma,
+                epsilon=None,
+                method=newton_raphson,
+                target_function=f,
             )
         elif self.algo == Algorithm.CHORDS:
-            x, fx = chords_method(
-                self.ui.logTextEdit,
-                f,
-                self.a, self.b, self.sigma,
-                self.epsilon
+            x, fx, plot_tmp = self.plotBuilder.build_plot(
+                lineEdit=self.ui.logTextEdit,
+                a=self.a,
+                b=self.b,
+                visible_range=(-1, 1.5),
+                sigma=self.sigma,
+                epsilon=self.epsilon,
+                method=chords_method,
+                target_function=f,
             )
-            pass
+        self.plt = plot_tmp
+        self.canvas = MplCanvas(figure=self.plt.gcf())
+        self.plotWindow.setCentralWidget(self.canvas)
+        self.plotWindow.show()
 
