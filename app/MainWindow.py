@@ -3,6 +3,8 @@ from typing import Optional
 
 from PyQt5.QtWidgets import QMainWindow, QWidget, QGridLayout
 from matplotlib import pyplot as plt
+
+from app.Canvas import MplCanvas
 from build_plot import PlotBuilder
 from PyQt5.QtWidgets import QMainWindow
 from constants import f
@@ -25,6 +27,7 @@ class Algorithm(Enum):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.canvas = None
         self.plotWindowLayout = None
         self.plotWindow = None
         self.epsilon: Optional[float] = None
@@ -34,15 +37,14 @@ class MainWindow(QMainWindow):
         self.algo: Algorithm = Algorithm.HALF_DIVIDE
         self.func = lambda x: 3 * x ** 4 + (x - 1) ** 2
         self.plt = plt
-        self.plotBuilder = PlotBuilder(self.plt, dpi=DPI, round_number=ROUND_NUMBER)
 
     def initPlotWindow(self):
         """Инициализация окна графика."""
-
         self.plotWindow: QMainWindow = QMainWindow(self)
         self.plotWindowLayout = QGridLayout(self.plotWindow)
         self.plotWindow.setLayout(self.plotWindowLayout)
         self.plotWindow.setFixedSize(800, 600)
+        self.plotBuilder = PlotBuilder(self.plt, dpi=DPI, round_number=ROUND_NUMBER)
         self.plotWindow.setWindowTitle('График работы метода')
 
     def initUi(self, ui):
@@ -97,7 +99,7 @@ class MainWindow(QMainWindow):
         """Запуск вычислительного алгоритма."""
         self.ui.logTextEdit.clear()
         if self.algo == Algorithm.HALF_DIVIDE:
-            x, fx, self.plt = self.plotBuilder.build_for_half_divide(
+            x, fx, plt = self.plotBuilder.build_for_half_divide(
                 lineEdit=self.ui.logTextEdit,
                 a=self.a,
                 b=self.b,
@@ -107,7 +109,11 @@ class MainWindow(QMainWindow):
                 method=half_divide,
                 target_function=f,
             )
+            self.plt = plt
+            self.canvas = MplCanvas(plt=self.plt)
+            self.plotWindow.setCentralWidget(self.canvas)
             self.plotWindow.show()
+
         elif self.algo == Algorithm.GOLD_SECTION:
             x, fx, sigma = golden_section(
                 self.ui.logTextEdit,
