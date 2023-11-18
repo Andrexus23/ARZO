@@ -3,9 +3,11 @@ from typing import Optional
 
 from PyQt5.QtWidgets import QMainWindow
 
+from half_divide import half_divide
+from constants.constants import *
 
 class Algorithm(Enum):
-    """Энам."""
+    """Энам для алгоритмов."""
     HALF_DIVIDE = 'Метод половинного деления'
     GOLD_SECTION = 'Метод золотого сечения'
     MID_POINT = 'Метод средней точки'
@@ -33,6 +35,11 @@ class MainWindow(QMainWindow):
         self.ui.doubleSpinBox_B.valueChanged.connect(self.updateRight)
         self.ui.runButton.clicked.connect(self.runAlgo)
         self.ui.AlgoComboBox.currentIndexChanged.connect(self.updateAlgo)
+        self.ui.logTextEdit.setReadOnly(True)
+        self.epsilon = self.ui.doubleSpinBoxEps.value()
+        self.sigma = self.ui.doubleSpinBoxSigma.value()
+        self.a = self.ui.doubleSpinBox_A.value()
+        self.b = self.ui.doubleSpinBox_B.value()
         self.show()
 
     def updateEps(self):
@@ -63,7 +70,11 @@ class MainWindow(QMainWindow):
     def runAlgo(self):
         """Запуск вычислительного алгоритма."""
         if self.algo == Algorithm.HALF_DIVIDE:
-            pass
+            x, fx = half_divide(
+                self.ui.logTextEdit,
+                self.a, self.b, self.sigma,
+                self.epsilon, ROUND_NUMBER,
+            )
         elif self.algo == Algorithm.GOLD_SECTION:
             pass
         elif self.algo == Algorithm.MID_POINT:
