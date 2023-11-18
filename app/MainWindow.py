@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import Optional
 
-from PyQt5.QtWidgets import QMainWindow, QWidget
+from PyQt5.QtWidgets import QMainWindow, QWidget, QGridLayout
 from matplotlib import pyplot as plt
 from build_plot import PlotBuilder
 from PyQt5.QtWidgets import QMainWindow
@@ -25,6 +25,8 @@ class Algorithm(Enum):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.plotWindowLayout = None
+        self.plotWindow = None
         self.epsilon: Optional[float] = None
         self.sigma: Optional[float] = None
         self.a: Optional[float] = None
@@ -33,8 +35,15 @@ class MainWindow(QMainWindow):
         self.func = lambda x: 3 * x ** 4 + (x - 1) ** 2
         self.plt = plt
         self.plotBuilder = PlotBuilder(self.plt, dpi=DPI, round_number=ROUND_NUMBER)
-        self.plotWindow: QWidget = QWidget(self)
-        self.plotWindow.resize(400, 300)
+
+    def initPlotWindow(self):
+        """Инициализация окна графика."""
+
+        self.plotWindow: QMainWindow = QMainWindow(self)
+        self.plotWindowLayout = QGridLayout(self.plotWindow)
+        self.plotWindow.setLayout(self.plotWindowLayout)
+        self.plotWindow.setFixedSize(800, 600)
+        self.plotWindow.setWindowTitle('График работы метода')
 
     def initUi(self, ui):
         self.ui = ui
@@ -47,10 +56,15 @@ class MainWindow(QMainWindow):
         self.ui.runButton.clicked.connect(self.runAlgo)
         self.ui.AlgoComboBox.currentIndexChanged.connect(self.updateAlgo)
         self.ui.logTextEdit.setReadOnly(True)
+        self.ui.doubleSpinBoxEps.setValue(EPS)
+        self.ui.doubleSpinBoxSigma.setValue(SIGMA)
+        self.ui.doubleSpinBox_A.setValue(A)
+        self.ui.doubleSpinBox_B.setValue(B)
         self.epsilon = self.ui.doubleSpinBoxEps.value()
         self.sigma = self.ui.doubleSpinBoxSigma.value()
         self.a = self.ui.doubleSpinBox_A.value()
         self.b = self.ui.doubleSpinBox_B.value()
+        self.initPlotWindow()
         self.show()
 
     def updateEps(self):
@@ -91,6 +105,7 @@ class MainWindow(QMainWindow):
                 method=half_divide,
                 target_function=f,
             )
+            self.plotWindow.show()
         elif self.algo == Algorithm.GOLD_SECTION:
             x, fx, sigma = golden_section(
                 self.ui.logTextEdit,
@@ -119,4 +134,4 @@ class MainWindow(QMainWindow):
                 self.epsilon
             )
             pass
-        self.plotWindow.show()
+
