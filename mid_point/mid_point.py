@@ -13,12 +13,12 @@ DX = 1e-6
 ROUND_NUMBER = 3
 
 
-def f(x: float) -> float:
-    """Целевая функция: 3 * x ^ 4 + (x - 1) ^ 2"""
-    return 3 * (x ** 4) + (x - 1) ** 2
+# def f(x: float) -> float:
+#     """Целевая функция: 3 * x ^ 4 + (x - 1) ^ 2"""
+#     return 3 * (x ** 4) + (x - 1) ** 2
 
 
-def mid_point(lineEdit: QPlainTextEdit, a: float, b: float, sigma: float, epsilon: float) -> tuple[float, float]:
+def mid_point(lineEdit: QPlainTextEdit, func, a: float, b: float, sigma: float, epsilon: float) -> tuple[float, float]:
     """Метод средней точки"""
     lineEdit.appendPlainText('Запущен метод средней точки. '
                              'Интервал: [{}, {}]; sigma = {}; epsilon = {}'.format(a, b, sigma, epsilon))
@@ -32,7 +32,7 @@ def mid_point(lineEdit: QPlainTextEdit, a: float, b: float, sigma: float, epsilo
     while abs(b - a) > 2 * epsilon:
         iter_count += 1
         x_0 = (a + b) / 2
-        df_x_0 = derivative(f, x_0, dx=DX)
+        df_x_0 = derivative(func, x_0, dx=DX)
         lineEdit.appendPlainText("Итерация №{}.\nx_0 = {}, df_x_0 = {}".format(
             iter_count,
             round(x_0, ROUND_NUMBER),
@@ -55,7 +55,7 @@ def mid_point(lineEdit: QPlainTextEdit, a: float, b: float, sigma: float, epsilo
         elif abs(df_x_0) <= sigma:
             break
     result = (a + b) / 2
-    f_x = f(result)
+    f_x = func(result)
     lineEdit.appendPlainText("Результат работы алгоритма: x = {}, f(x) = {}\n".format(
         round(result, ROUND_NUMBER),
         round(f_x, ROUND_NUMBER)

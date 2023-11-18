@@ -4,13 +4,14 @@ from typing import Tuple
 from PyQt5.QtWidgets import QPlainTextEdit
 
 
-def f(x) -> float:
-    """Целевая функция: 3 * x^4 + (x - 1)^2"""
-    return 3 * x ** 4 + (x - 1) ** 2
+# def f(x) -> float:
+#     """Целевая функция: 3 * x^4 + (x - 1)^2"""
+#     return 3 * x ** 4 + (x - 1) ** 2
 
 
 def half_divide(
         lineEdit: QPlainTextEdit,
+        func,
         a: float, b: float,
         sigma: float, epsilon: float,
         round_number=3,
@@ -25,8 +26,8 @@ def half_divide(
         c = (a + b) / 2
         x_1 = c - (sigma / 2)
         x_2 = c + (sigma / 2)
-        f_x_1 = f(x_1)
-        f_x_2 = f(x_2)
+        f_x_1 = func(x_1)
+        f_x_2 = func(x_2)
         if f_x_1 < f_x_2:
             b = x_2
         elif f_x_1 > f_x_2:
@@ -48,8 +49,11 @@ def half_divide(
         iter_count += 1
 
     result = float(a + b) / 2
-    f_result = f(result)
-    lineEdit.appendPlainText('Результат метода половинного сечения: {}\n\n'.format(round(result, round_number)))
+    f_result = func(result)
+    lineEdit.appendPlainText('Результат метода половинного сечения: x = {}, f(x) = {}\n\n'.format(
+        round(result, round_number),
+        round(f_result, round_number)
+    ))
     return result, f_result
 
 # half_divide(0.3, 2, sigma, epsilon)
