@@ -80,6 +80,7 @@ class MainWindow(QMainWindow):
 
     def runAlgo(self):
         """Запуск вычислительного алгоритма."""
+        self.ui.logTextEdit.clear()
         if self.algo == Algorithm.HALF_DIVIDE:
             x, fx, self.plt = self.plotBuilder.build_for_half_divide(
                 lineEdit=self.ui.logTextEdit,
