@@ -1,0 +1,1 @@
+from chords.chords import chords_method
