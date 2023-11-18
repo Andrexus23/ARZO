@@ -1,5 +1,5 @@
 import logging
-from typing import Tuple
+from typing import Tuple, Any
 
 from PyQt5.QtWidgets import QLineEdit, QPlainTextEdit
 
@@ -11,6 +11,7 @@ def f(x) -> float:
 
 def half_divide(
         lineEdit: QPlainTextEdit,
+        f: Any,
         a: float, b: float,
         sigma: float, epsilon: float,
         round_number=3,

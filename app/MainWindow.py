@@ -2,8 +2,9 @@ from enum import Enum
 from typing import Optional
 
 from PyQt5.QtWidgets import QMainWindow
-
-from half_divide import half_divide
+from matplotlib import pyplot as plt
+from half_divide import half_divide, f
+from build_plot import PlotBuilder
 from constants.constants import *
 
 class Algorithm(Enum):
@@ -24,6 +25,8 @@ class MainWindow(QMainWindow):
         self.b: Optional[float] = None
         self.algo: Algorithm = Algorithm.HALF_DIVIDE
         self.func = lambda x: 3 * x ** 4 + (x - 1) ** 2
+        self.plt = plt
+        self.plotBuilder = PlotBuilder(self.plt, dpi=200, round_number=ROUND_NUMBER)
 
     def initUi(self, ui):
         self.ui = ui
@@ -70,10 +73,15 @@ class MainWindow(QMainWindow):
     def runAlgo(self):
         """Запуск вычислительного алгоритма."""
         if self.algo == Algorithm.HALF_DIVIDE:
-            x, fx = half_divide(
-                self.ui.logTextEdit,
-                self.a, self.b, self.sigma,
-                self.epsilon, ROUND_NUMBER,
+            x, fx, self.plt = self.plotBuilder.build_for_half_divide(
+                lineEdit=self.ui.logTextEdit,
+                a=self.a,
+                b=self.b,
+                visible_range=(-1, 1.5),
+                sigma=self.sigma,
+                epsilon=self.epsilon,
+                method=half_divide,
+                target_function=f,
             )
         elif self.algo == Algorithm.GOLD_SECTION:
             pass
