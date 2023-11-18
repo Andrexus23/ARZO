@@ -51,6 +51,7 @@ class MainWindow(QMainWindow):
         self.sigma = self.ui.doubleSpinBoxSigma.value()
         self.a = self.ui.doubleSpinBox_A.value()
         self.b = self.ui.doubleSpinBox_B.value()
+        self.ui.lineEditFunc.setText(f.__doc__)
         self.show()
 
     def updateEps(self):
