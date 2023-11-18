@@ -1,8 +1,10 @@
 from enum import Enum
 from typing import Optional
 
+from PyQt5.QtWidgets import QMainWindow, QWidget
+from matplotlib import pyplot as plt
+from build_plot import PlotBuilder
 from PyQt5.QtWidgets import QMainWindow
-
 from constants import f
 from half_divide import half_divide
 from golden_section import golden_section
@@ -29,6 +31,10 @@ class MainWindow(QMainWindow):
         self.b: Optional[float] = None
         self.algo: Algorithm = Algorithm.HALF_DIVIDE
         self.func = lambda x: 3 * x ** 4 + (x - 1) ** 2
+        self.plt = plt
+        self.plotBuilder = PlotBuilder(self.plt, dpi=DPI, round_number=ROUND_NUMBER)
+        self.plotWindow: QWidget = QWidget(self)
+        self.plotWindow.resize(400, 300)
 
     def initUi(self, ui):
         self.ui = ui
@@ -75,11 +81,15 @@ class MainWindow(QMainWindow):
     def runAlgo(self):
         """Запуск вычислительного алгоритма."""
         if self.algo == Algorithm.HALF_DIVIDE:
-            x, fx = half_divide(
-                self.ui.logTextEdit,
-                f,
-                self.a, self.b, self.sigma,
-                self.epsilon, ROUND_NUMBER,
+            x, fx, self.plt = self.plotBuilder.build_for_half_divide(
+                lineEdit=self.ui.logTextEdit,
+                a=self.a,
+                b=self.b,
+                visible_range=(-1, 1.5),
+                sigma=self.sigma,
+                epsilon=self.epsilon,
+                method=half_divide,
+                target_function=f,
             )
         elif self.algo == Algorithm.GOLD_SECTION:
             x, fx, sigma = golden_section(
@@ -109,4 +119,4 @@ class MainWindow(QMainWindow):
                 self.epsilon
             )
             pass
-        # ...
+        self.plotWindow.show()

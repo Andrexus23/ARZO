@@ -1,17 +1,12 @@
 import logging
-from typing import Tuple
+from typing import Tuple, Any
 
 from PyQt5.QtWidgets import QPlainTextEdit
 
 
-# def f(x) -> float:
-#     """Целевая функция: 3 * x^4 + (x - 1)^2"""
-#     return 3 * x ** 4 + (x - 1) ** 2
-
-
 def half_divide(
         lineEdit: QPlainTextEdit,
-        func,
+        func: Any,
         a: float, b: float,
         sigma: float, epsilon: float,
         round_number=3,

@@ -1,7 +1,8 @@
-ROUND_NUMBER = 3
+ROUND_NUMBER = 5
+DPI = 200
 DX = 1e-6
-
 
 def f(x) -> float:
     """Целевая функция: 3 * x^4 + (x - 1)^2"""
     return 3 * x ** 4 + (x - 1) ** 2
+
