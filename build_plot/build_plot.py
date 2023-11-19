@@ -50,6 +50,9 @@ class PlotBuilder:
 
         self._plt.clf()
 
+        if x_0 is None and f_x0 is None:
+            return None, None, self._plt
+
         self._plt.grid(True)
         self._plt.plot(x_array, y_array)
         self._plt.xlabel('x')
