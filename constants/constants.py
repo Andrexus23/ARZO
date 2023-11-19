@@ -5,6 +5,7 @@ EPS = 0.001
 SIGMA = 0.001
 A = 0.0
 B = 4.0
+RANGE = 5.0
 
 def f(x) -> float:
     """3 * x^4 + (x - 1)^2"""

@@ -24,7 +24,6 @@ class PlotBuilder:
                    lineEdit: QPlainTextEdit,
                    a: Optional[float],
                    b: Optional[float],
-                   visible_range: Tuple,
                    sigma: Optional[float],
                    epsilon: Optional[float],
                    method: Any,
@@ -32,8 +31,7 @@ class PlotBuilder:
                    ):
         """Построение графика для half_divide."""
 
-        x_array = linspace(visible_range[0], visible_range[1], int((visible_range[1] - visible_range[0]) * 100))
-        y_array = [target_function(x_value) for x_value in x_array]
+
         x_0 = None
         f_x0 = None
         sigma_output = None
@@ -47,6 +45,10 @@ class PlotBuilder:
             x_0, f_x0 = method(lineEdit, target_function, a, b, sigma, epsilon)
         elif method is newton_raphson:
             x_0, f_x0 = method(lineEdit, target_function, b, sigma)
+        range_x = abs(b - a)
+        visible_range = [x_0 - range_x, x_0 + range_x]
+        x_array = linspace(visible_range[0], visible_range[1], int((visible_range[1] - visible_range[0]) * 100))
+        y_array = [target_function(x_value) for x_value in x_array]
 
         self._plt.clf()
 
