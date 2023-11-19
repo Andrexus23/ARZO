@@ -13,6 +13,7 @@ from chords import chords_method
 from newton_raphson import newton_raphson
 from constants.constants import *
 
+
 class Algorithm(Enum):
     """Энам для алгоритмов."""
     HALF_DIVIDE = 'Метод половинного деления'
@@ -34,6 +35,7 @@ class MainWindow(QMainWindow):
         self.b: Optional[float] = None
         self.algo: Algorithm = Algorithm.HALF_DIVIDE
         self.func = lambda x: 3 * x ** 4 + (x - 1) ** 2
+        self.textFunc = "3 * x ** 4 + (x - 1) ** 2"
         self.plt = plt
 
     def initPlotWindow(self):
@@ -65,7 +67,8 @@ class MainWindow(QMainWindow):
         self.a = self.ui.doubleSpinBox_A.value()
         self.b = self.ui.doubleSpinBox_B.value()
         self.initPlotWindow()
-        self.ui.lineEditFunc.setText(f.__doc__)
+        self.ui.lineEditFunc.textChanged.connect(self.updateFunc)
+        self.ui.lineEditFunc.setText(self.textFunc)
         self.show()
 
     def updateEps(self):
@@ -98,6 +101,8 @@ class MainWindow(QMainWindow):
         self.ui.logTextEdit.clear()
         if not self.checkParams():
             return
+        plot_tmp = None
+        target_func = lambda x: eval(self.textFunc)
         x, fx, plot_tmp = None, None, None
         if self.algo == Algorithm.HALF_DIVIDE:
             x, fx, plot_tmp = self.plotBuilder.build_plot(
@@ -108,7 +113,8 @@ class MainWindow(QMainWindow):
                 sigma=self.sigma,
                 epsilon=self.epsilon,
                 method=half_divide,
-                target_function=f,
+                target_function=target_func,
+                target_function_text=self.textFunc
             )
         elif self.algo == Algorithm.GOLD_SECTION:
             x, fx, plot_tmp = self.plotBuilder.build_plot(
@@ -119,7 +125,8 @@ class MainWindow(QMainWindow):
                 sigma=None,
                 epsilon=self.epsilon,
                 method=golden_section,
-                target_function=f,
+                target_function=target_func,
+                target_function_text=self.textFunc
             )
         elif self.algo == Algorithm.MID_POINT:
             x, fx, plot_tmp = self.plotBuilder.build_plot(
@@ -130,7 +137,8 @@ class MainWindow(QMainWindow):
                 sigma=self.sigma,
                 epsilon=self.epsilon,
                 method=mid_point,
-                target_function=f,
+                target_function=target_func,
+                target_function_text=self.textFunc
             )
         elif self.algo == Algorithm.NEWTON_RAPFSON:
             x, fx, plot_tmp = self.plotBuilder.build_plot(
@@ -141,7 +149,8 @@ class MainWindow(QMainWindow):
                 sigma=self.sigma,
                 epsilon=None,
                 method=newton_raphson,
-                target_function=f,
+                target_function=target_func,
+                target_function_text=self.textFunc
             )
         elif self.algo == Algorithm.CHORDS:
             x, fx, plot_tmp = self.plotBuilder.build_plot(
@@ -152,7 +161,8 @@ class MainWindow(QMainWindow):
                 sigma=self.sigma,
                 epsilon=self.epsilon,
                 method=chords_method,
-                target_function=f,
+                target_function=target_func,
+                target_function_text=self.textFunc
             )
         if x is None and fx is None:
             return
@@ -169,3 +179,6 @@ class MainWindow(QMainWindow):
             self.ui.logTextEdit.appendPlainText("Недопустимое значение параметров: a >= b")
             return False
         return True
+
+    def updateFunc(self):
+        self.textFunc = self.ui.lineEditFunc.text()

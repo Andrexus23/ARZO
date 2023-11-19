@@ -29,6 +29,7 @@ class PlotBuilder:
                    epsilon: Optional[float],
                    method: Any,
                    target_function: Any,
+                   target_function_text: str,
                    ):
         """Построение графика для half_divide."""
 
@@ -57,7 +58,7 @@ class PlotBuilder:
         self._plt.plot(x_array, y_array)
         self._plt.xlabel('x')
         self._plt.ylabel('y')
-        title_arg = method.__doc__ + '\n' + target_function.__doc__ + '\n'
+        title_arg = method.__doc__ + '\n' + target_function_text + '\n'
         if method in [half_divide, mid_point, chords_method]:
             title_arg += \
                 'Интервал: [{}, {}]; '.format(round(a, self.round_number), round(b, self.round_number)) + \
