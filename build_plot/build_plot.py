@@ -1,7 +1,10 @@
+import math
 from typing import Any, Tuple, Optional
 from matplotlib import pyplot
 from numpy import linspace
 from PyQt5.QtWidgets import QPlainTextEdit
+
+from constants.constants import RANGE
 from half_divide import half_divide
 from golden_section import golden_section
 from mid_point import mid_point
@@ -46,15 +49,20 @@ class PlotBuilder:
             x_0, f_x0 = method(lineEdit, target_function, a, b, sigma, epsilon)
         elif method is newton_raphson:
             x_0, f_x0 = method(lineEdit, target_function, b, sigma)
-        range_x = abs(b - a)
-        visible_range = [x_0 - range_x, x_0 + range_x]
-        x_array = linspace(visible_range[0], visible_range[1], int((visible_range[1] - visible_range[0]) * 100))
-        y_array = [target_function(x_value) for x_value in x_array]
+        range_x = 0
+        if method is not newton_raphson:
+            range_x = int(abs(b - a) / 2)
+        else:
+            range_x = RANGE
 
         self._plt.clf()
 
-        if x_0 is None and f_x0 is None:
+        if x_0 is None and f_x0 is None or math.isnan(x_0) or math.isnan(f_x0):
             return None, None, self._plt
+
+        visible_range = [x_0 - range_x, x_0 + range_x]
+        x_array = linspace(visible_range[0], visible_range[1], int((visible_range[1] - visible_range[0]) * 100))
+        y_array = [target_function(x_value) for x_value in x_array]
 
         self._plt.grid(True)
         self._plt.plot(x_array, y_array)
