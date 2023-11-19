@@ -1,8 +1,5 @@
-import logging
 import warnings
-
 from PyQt5.QtWidgets import QPlainTextEdit
-
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 from scipy.misc import derivative
 
