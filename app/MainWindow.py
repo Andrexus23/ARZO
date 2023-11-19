@@ -98,6 +98,8 @@ class MainWindow(QMainWindow):
     def runAlgo(self):
         """Запуск вычислительного алгоритма."""
         self.ui.logTextEdit.clear()
+        if not self.checkParams():
+            return
         plot_tmp = None
         if self.algo == Algorithm.HALF_DIVIDE:
             x, fx, plot_tmp = self.plotBuilder.build_plot(
@@ -154,8 +156,15 @@ class MainWindow(QMainWindow):
                 method=chords_method,
                 target_function=f,
             )
+        if x is None and fx is None:
+            return
         self.plt = plot_tmp
         self.canvas = MplCanvas(figure=self.plt.gcf())
         self.plotWindow.setCentralWidget(self.canvas)
         self.plotWindow.show()
 
+    def checkParams(self):
+        if self.sigma >= 2 * self.epsilon:
+            self.ui.logTextEdit.appendPlainText("Недопустимое сочетание параметров: sigma >= 2 * epsilon")
+            return False
+        return True

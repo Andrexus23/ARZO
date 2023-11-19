@@ -32,7 +32,7 @@ def chords_method(lineEdit: QPlainTextEdit, func, a: float, b: float, sigma: flo
         lineEdit.appendPlainText('Интервал: [{}, {}]; f(a) = {}; f(b) = {}; Требуется корректировка интервала\n'.format(
             round(a, round_number), round(b, round_number), round(f_a, round_number), round(f_b, round_number)
         ))
-        return
+        return None, None
     iter_count = 1
     while True:
         x_0 = a - (f_a * (b - a) / (f_b - f_a))
