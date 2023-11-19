@@ -1,9 +1,7 @@
 from enum import Enum
 from typing import Optional
-
-from PyQt5.QtWidgets import QMainWindow, QWidget, QGridLayout
+from PyQt5.QtWidgets import QGridLayout
 from matplotlib import pyplot as plt
-
 from app.Canvas import MplCanvas
 from build_plot import PlotBuilder
 from PyQt5.QtWidgets import QMainWindow
