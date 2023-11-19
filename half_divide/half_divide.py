@@ -18,7 +18,7 @@ def half_divide(
     delta = b - a
     iter_count = 1
 
-    while abs(delta) > 2 * epsilon:
+    while (abs(delta) > 2 * epsilon) or (iter_count < MAX_ITER_COUNT):
         c = (a + b) / 2
         x_1 = c - (sigma / 2)
         x_2 = c + (sigma / 2)
@@ -43,6 +43,19 @@ def half_divide(
 
         delta = b - a
         iter_count += 1
+        if iter_count >= MAX_ITER_COUNT:
+            lineEdit.appendPlainText('Итерация {}; Интервал: [{}, {}]; '
+                                     'c = {}; x_1 = {}; x_2 = {}; f(x_1) = {}; f(x_2) = {}. Итерации исчерпаны.'.format(
+                iter_count,
+                round(a, round_number),
+                round(b, round_number),
+                round(c, round_number),
+                round(x_1, round_number),
+                round(x_2, round_number),
+                round(f_x_1, round_number),
+                round(f_x_2, round_number),
+            ))
+            break
 
     result = float(a + b) / 2
     f_result = func(result)

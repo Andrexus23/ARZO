@@ -1,14 +1,8 @@
 from PyQt5.QtWidgets import QPlainTextEdit
 
-# file = '../golden_section.log'
-# logging.basicConfig(format='%(message)s', filename=file, encoding='utf-8', level=logging.INFO)
 
 ROUND_NUMBER = 3
 
-
-# def f(x: float) -> float:
-#     """Целевая функция: 3 * x ^ 4 + (x - 1) ^ 2"""
-#     return 3 * (x ** 4) + (x - 1) ** 2
 
 
 def golden_section(lineEdit: QPlainTextEdit, func, a: float, b: float, epsilon: float) -> tuple[float, float, float]:
