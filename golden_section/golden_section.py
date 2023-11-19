@@ -36,7 +36,7 @@ def golden_section(lineEdit: QPlainTextEdit, func, a: float, b: float, epsilon: 
         if f_x_1 < f_x_2:
             b = x_2
             delta = abs(b - a)
-            lineEdit.appendPlainText("f_x_1 < f_x_2\nInterval = [{}, {}]"
+            lineEdit.appendPlainText("f_x_1 < f_x_2\nИнтервал: [{}, {}]"
                                      " delta = {}".format(
                 round(a, ROUND_NUMBER),
                 round(b, ROUND_NUMBER),
@@ -51,7 +51,7 @@ def golden_section(lineEdit: QPlainTextEdit, func, a: float, b: float, epsilon: 
         elif f_x_1 > f_x_2:
             a = x_1
             delta = abs(b - a)
-            lineEdit.appendPlainText("f_x_1 > f_x_2\nInterval = [{}, {}], delta = {}".format(
+            lineEdit.appendPlainText("f_x_1 > f_x_2\nИнтервал: [{}, {}], delta = {}".format(
                 round(a, ROUND_NUMBER),
                 round(b, ROUND_NUMBER),
                 round(delta, ROUND_NUMBER)

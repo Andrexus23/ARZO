@@ -98,7 +98,7 @@ class MainWindow(QMainWindow):
         self.ui.logTextEdit.clear()
         if not self.checkParams():
             return
-        plot_tmp = None
+        x, fx, plot_tmp = None, None, None
         if self.algo == Algorithm.HALF_DIVIDE:
             x, fx, plot_tmp = self.plotBuilder.build_plot(
                 lineEdit=self.ui.logTextEdit,
@@ -164,5 +164,8 @@ class MainWindow(QMainWindow):
     def checkParams(self):
         if self.sigma >= 2 * self.epsilon:
             self.ui.logTextEdit.appendPlainText("Недопустимое сочетание параметров: sigma >= 2 * epsilon")
+            return False
+        if self.a >= self.b and self.algo != Algorithm.NEWTON_RAPFSON:
+            self.ui.logTextEdit.appendPlainText("Недопустимое значение параметров: a >= b")
             return False
         return True
