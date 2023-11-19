@@ -2,6 +2,8 @@ from typing import Tuple, Any
 
 from PyQt5.QtWidgets import QPlainTextEdit
 
+from constants.constants import MAX_ITER_COUNT
+
 
 def half_divide(
         lineEdit: QPlainTextEdit,
