@@ -1,5 +1,3 @@
-import logging
-
 from PyQt5.QtWidgets import QPlainTextEdit
 
 # file = '../golden_section.log'

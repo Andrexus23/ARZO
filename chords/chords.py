@@ -1,11 +1,10 @@
-import logging
-from typing import Optional, Tuple
 
+from typing import Optional, Tuple
 from PyQt5.QtWidgets import QPlainTextEdit
 from scipy.misc import derivative
-import warnings
-
-warnings.filterwarnings("ignore", category=DeprecationWarning)
+# import warnings
+#
+# warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # logging.basicConfig(format='%(message)s', filemode="w", filename='chords.log', encoding='utf-8',
 #                     level=logging.INFO)
