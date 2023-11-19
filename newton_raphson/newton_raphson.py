@@ -15,10 +15,6 @@ DX = 1e-6
 ROUND_NUMBER = 3
 
 
-# def f(x: float) -> float:
-#     """Целевая функция: 3 * x ^ 4 + (x - 1) ^ 2"""
-#     return 3 * (x ** 4) + (x - 1) ** 2
-
 
 def newton_raphson(lineEdit: QPlainTextEdit, func, b: float, sigma: float) -> Tuple[Optional[float], Optional[float]]:
     """Метод Ньютона-Рафсона"""
@@ -52,6 +48,3 @@ def newton_raphson(lineEdit: QPlainTextEdit, func, b: float, sigma: float) -> Tu
         round(f_x, ROUND_NUMBER)
     ))
     return x_k, f_x
-
-
-# x, y = newton_raphson(4.0, 0.01)

@@ -1,17 +1,14 @@
+from typing import Tuple, Optional
+
 from PyQt5.QtWidgets import QPlainTextEdit
 
-# file = '../golden_section.log'
-# logging.basicConfig(format='%(message)s', filename=file, encoding='utf-8', level=logging.INFO)
+from constants.constants import MAX_ITER_COUNT
 
 ROUND_NUMBER = 3
 
 
-# def f(x: float) -> float:
-#     """Целевая функция: 3 * x ^ 4 + (x - 1) ^ 2"""
-#     return 3 * (x ** 4) + (x - 1) ** 2
-
-
-def golden_section(lineEdit: QPlainTextEdit, func, a: float, b: float, epsilon: float) -> tuple[float, float, float]:
+def golden_section(lineEdit: QPlainTextEdit, func, a: float, b: float, epsilon: float) -> \
+        Tuple[Optional[float], Optional[float], Optional[float]]:
     """Метод золотого сечения"""
     lineEdit.appendPlainText('Запущен метод золотого сечения. '
                              'Интервал: [{}, {}]; epsilon = {}'.format(a, b, epsilon))
@@ -51,7 +48,7 @@ def golden_section(lineEdit: QPlainTextEdit, func, a: float, b: float, epsilon: 
         elif f_x_1 > f_x_2:
             a = x_1
             delta = abs(b - a)
-            lineEdit.appendPlainText("f_x_1 > f_x_2\nИнтервал: [{}, {}], delta = {}".format(
+            lineEdit.appendPlainText("Интервал: [{}, {}], delta = {}".format(
                 round(a, ROUND_NUMBER),
                 round(b, ROUND_NUMBER),
                 round(delta, ROUND_NUMBER)
@@ -63,6 +60,9 @@ def golden_section(lineEdit: QPlainTextEdit, func, a: float, b: float, epsilon: 
             x_2 = a + lambda_ * delta
             f_x_2 = func(x_2)
         iter_count += 1
+        if iter_count >= MAX_ITER_COUNT:
+            lineEdit.appendPlainText("\nИтерации исчерпаны")
+            return None, None, None
     result = (a + b) / 2
     f_x = func(result)
     lineEdit.appendPlainText("Результат работы алгоритма: x = {}, f(x) = {}\n".format(

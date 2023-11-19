@@ -1,6 +1,11 @@
 
 import warnings
+from typing import Tuple, Optional
+
 from PyQt5.QtWidgets import QPlainTextEdit
+
+from constants.constants import MAX_ITER_COUNT
+
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 from scipy.misc import derivative
 
@@ -16,7 +21,7 @@ ROUND_NUMBER = 3
 #     return 3 * (x ** 4) + (x - 1) ** 2
 
 
-def mid_point(lineEdit: QPlainTextEdit, func, a: float, b: float, sigma: float, epsilon: float) -> tuple[float, float]:
+def mid_point(lineEdit: QPlainTextEdit, func, a: float, b: float, sigma: float, epsilon: float) -> Tuple[Optional[float], Optional[float]]:
     """Метод средней точки"""
     lineEdit.appendPlainText('Запущен метод средней точки. '
                              'Интервал: [{}, {}]; sigma = {}; epsilon = {}'.format(a, b, sigma, epsilon))
@@ -29,6 +34,9 @@ def mid_point(lineEdit: QPlainTextEdit, func, a: float, b: float, sigma: float, 
     ))
     while abs(b - a) > 2 * epsilon:
         iter_count += 1
+        if iter_count >= MAX_ITER_COUNT:
+            lineEdit.appendPlainText("Итерации исчерпаны")
+            return None, None
         x_0 = (a + b) / 2
         df_x_0 = derivative(func, x_0, dx=DX)
         lineEdit.appendPlainText("Итерация №{}.\nx_0 = {}, df_x_0 = {}".format(

@@ -1,6 +1,8 @@
-from typing import Tuple, Any
+from typing import Tuple, Any, Optional
 
 from PyQt5.QtWidgets import QPlainTextEdit
+
+from constants.constants import MAX_ITER_COUNT
 
 
 def half_divide(
@@ -9,14 +11,14 @@ def half_divide(
         a: float, b: float,
         sigma: float, epsilon: float,
         round_number=3,
-) -> Tuple[float, float]:
+) -> Tuple[Optional[float], Optional[float]]:
     """Метод половинного деления"""
     lineEdit.appendPlainText('Запущен метод половинного сечения. '
                              'Интервал: [{}, {}]; sigma = {}; epsilon = {}'.format(a, b, sigma, epsilon))
     delta = b - a
     iter_count = 1
 
-    while abs(delta) > 2 * epsilon:
+    while (abs(delta) > 2 * epsilon):
         c = (a + b) / 2
         x_1 = c - (sigma / 2)
         x_2 = c + (sigma / 2)
@@ -41,6 +43,9 @@ def half_divide(
 
         delta = b - a
         iter_count += 1
+        if iter_count >= MAX_ITER_COUNT:
+            lineEdit.appendPlainText('Итерации исчерпаны.')
+            return None, None
 
     result = float(a + b) / 2
     f_result = func(result)

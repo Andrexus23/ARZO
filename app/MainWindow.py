@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Optional
+from typing import Optional, Any
 from PyQt5.QtWidgets import QGridLayout
 from matplotlib import pyplot as plt
 from app.Canvas import MplCanvas
@@ -96,6 +96,7 @@ class MainWindow(QMainWindow):
         elif text == Algorithm.CHORDS.value:
             self.algo = Algorithm.CHORDS
 
+
     def runAlgo(self):
         """Запуск вычислительного алгоритма."""
         self.ui.logTextEdit.clear()
@@ -104,61 +105,64 @@ class MainWindow(QMainWindow):
         plot_tmp = None
         target_func = lambda x: eval(self.textFunc)
         x, fx, plot_tmp = None, None, None
-        if self.algo == Algorithm.HALF_DIVIDE:
-            x, fx, plot_tmp = self.plotBuilder.build_plot(
-                lineEdit=self.ui.logTextEdit,
-                a=self.a,
-                b=self.b,
-                sigma=self.sigma,
-                epsilon=self.epsilon,
-                method=half_divide,
-                target_function=target_func,
-                target_function_text=self.textFunc
-            )
-        elif self.algo == Algorithm.GOLD_SECTION:
-            x, fx, plot_tmp = self.plotBuilder.build_plot(
-                lineEdit=self.ui.logTextEdit,
-                a=self.a,
-                b=self.b,
-                sigma=None,
-                epsilon=self.epsilon,
-                method=golden_section,
-                target_function=target_func,
-                target_function_text=self.textFunc
-            )
-        elif self.algo == Algorithm.MID_POINT:
-            x, fx, plot_tmp = self.plotBuilder.build_plot(
-                lineEdit=self.ui.logTextEdit,
-                a=self.a,
-                b=self.b,
-                sigma=self.sigma,
-                epsilon=self.epsilon,
-                method=mid_point,
-                target_function=target_func,
-                target_function_text=self.textFunc
-            )
-        elif self.algo == Algorithm.NEWTON_RAPFSON:
-            x, fx, plot_tmp = self.plotBuilder.build_plot(
-                lineEdit=self.ui.logTextEdit,
-                a=None,
-                b=self.b,
-                sigma=self.sigma,
-                epsilon=None,
-                method=newton_raphson,
-                target_function=target_func,
-                target_function_text=self.textFunc
-            )
-        elif self.algo == Algorithm.CHORDS:
-            x, fx, plot_tmp = self.plotBuilder.build_plot(
-                lineEdit=self.ui.logTextEdit,
-                a=self.a,
-                b=self.b,
-                sigma=self.sigma,
-                epsilon=self.epsilon,
-                method=chords_method,
-                target_function=target_func,
-                target_function_text=self.textFunc
-            )
+        try:
+            if self.algo == Algorithm.HALF_DIVIDE:
+                x, fx, plot_tmp = self.plotBuilder.build_plot(
+                    lineEdit=self.ui.logTextEdit,
+                    a=self.a,
+                    b=self.b,
+                    sigma=self.sigma,
+                    epsilon=self.epsilon,
+                    method=half_divide,
+                    target_function=target_func,
+                    target_function_text=self.textFunc
+                )
+            elif self.algo == Algorithm.GOLD_SECTION:
+                x, fx, plot_tmp = self.plotBuilder.build_plot(
+                    lineEdit=self.ui.logTextEdit,
+                    a=self.a,
+                    b=self.b,
+                    sigma=None,
+                    epsilon=self.epsilon,
+                    method=golden_section,
+                    target_function=target_func,
+                    target_function_text=self.textFunc
+                )
+            elif self.algo == Algorithm.MID_POINT:
+                x, fx, plot_tmp = self.plotBuilder.build_plot(
+                    lineEdit=self.ui.logTextEdit,
+                    a=self.a,
+                    b=self.b,
+                    sigma=self.sigma,
+                    epsilon=self.epsilon,
+                    method=mid_point,
+                    target_function=target_func,
+                    target_function_text=self.textFunc
+                )
+            elif self.algo == Algorithm.NEWTON_RAPFSON:
+                x, fx, plot_tmp = self.plotBuilder.build_plot(
+                    lineEdit=self.ui.logTextEdit,
+                    a=None,
+                    b=self.b,
+                    sigma=self.sigma,
+                    epsilon=None,
+                    method=newton_raphson,
+                    target_function=target_func,
+                    target_function_text=self.textFunc
+                )
+            elif self.algo == Algorithm.CHORDS:
+                x, fx, plot_tmp = self.plotBuilder.build_plot(
+                    lineEdit=self.ui.logTextEdit,
+                    a=self.a,
+                    b=self.b,
+                    sigma=self.sigma,
+                    epsilon=self.epsilon,
+                    method=chords_method,
+                    target_function=target_func,
+                    target_function_text=self.textFunc
+                )
+        except (SyntaxError, TypeError, NameError):
+            self.ui.logTextEdit.appendPlainText('Целевая функция введена некорректно')
         if x is None and fx is None:
             return
         self.plt = plot_tmp
@@ -176,4 +180,5 @@ class MainWindow(QMainWindow):
         return True
 
     def updateFunc(self):
+        txt = self.ui.lineEditFunc.text()
         self.textFunc = self.ui.lineEditFunc.text()
