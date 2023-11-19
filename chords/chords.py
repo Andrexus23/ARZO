@@ -3,12 +3,14 @@ from typing import Optional, Tuple
 from PyQt5.QtWidgets import QPlainTextEdit
 from scipy.misc import derivative
 
+from constants.constants import MAX_ITER_COUNT
+
 ROUND_NUMBER = 3
 DX = 1e-6
 
 
 def chords_method(lineEdit: QPlainTextEdit, func, a: float, b: float, sigma: float, epsilon: float, round_number=3) -> Optional[
-    Tuple[float, float]]:
+    Tuple[Optional[float], Optional[float]]]:
     """Метод хорд"""
     delta = [a, b]
     f_a = derivative(func, a, dx=DX)
@@ -41,11 +43,13 @@ def chords_method(lineEdit: QPlainTextEdit, func, a: float, b: float, sigma: flo
             lineEdit.appendPlainText(
                 'Итерация: {}; Интервал: [{}, {}]; x_0 = (a + b)/2 = {} - искомая точка минимума, процедура завершена.\n'.format(
                     iter_count, round(a, round_number), round(b, round_number), round(x_0, round_number)))
-            return x_0, func(x_0)
         lineEdit.appendPlainText('Итерация: {}, Интервал: [{}, {}]; epsilon = {}, (b - a) > 2*epsilon'.format(
             iter_count,
-            round(a,round_number),
+            round(a, round_number),
             round(b, round_number),
             round(epsilon, round_number)
         ))
         iter_count += 1
+        if iter_count >= MAX_ITER_COUNT:
+            lineEdit.appendPlainText("Итерации исчерпаны")
+            return None, None
