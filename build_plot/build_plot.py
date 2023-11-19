@@ -1,9 +1,7 @@
 from typing import Any, Tuple, Optional
-
-import matplotlib
-import numpy as np
+from matplotlib import pyplot
+from numpy import linspace
 from PyQt5.QtWidgets import QPlainTextEdit
-from matplotlib import pyplot as plt
 from half_divide import half_divide
 from golden_section import golden_section
 from mid_point import mid_point
@@ -14,12 +12,12 @@ class PlotBuilder:
     """Класс построения графиков для алгоритмов."""
 
     def __init__(self,
-                 plt: matplotlib.pyplot,
+                 plt: pyplot,
                  dpi: int = 300,
                  round_number=3):
         """Конструктор"""
         self.round_number = 3
-        self._plt:matplotlib.pyplot = plt
+        self._plt: pyplot = plt
         self._dpi:int = dpi
 
     def build_plot(self,
@@ -35,7 +33,7 @@ class PlotBuilder:
                    ):
         """Построение графика для half_divide."""
 
-        x_array = np.linspace(visible_range[0], visible_range[1], int((visible_range[1] - visible_range[0]) * 100))
+        x_array = linspace(visible_range[0], visible_range[1], int((visible_range[1] - visible_range[0]) * 100))
         y_array = [target_function(x_value) for x_value in x_array]
         x_0 = None
         f_x0 = None
@@ -80,7 +78,7 @@ class PlotBuilder:
         self._plt.plot(x_0, f_x0, marker='o', color='red', ms = 8)
         self._plt.text(x_0 - 0.15, f_x0 + 1, s='(' + str(round(x_0, self.round_number)) + ', ' + str(round(f_x0, self.round_number)) + ')')
         # self._plt.savefig(im_path, dpi=self._dpi)
-        return x_0, f_x0, plt
+        return x_0, f_x0, self._plt
 
 
 

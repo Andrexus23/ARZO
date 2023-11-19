@@ -1,4 +1,3 @@
-import logging
 from typing import Tuple, Any
 
 from PyQt5.QtWidgets import QPlainTextEdit

@@ -1,8 +1,6 @@
-import logging
+
 import warnings
-
 from PyQt5.QtWidgets import QPlainTextEdit
-
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 from scipy.misc import derivative
 
@@ -23,7 +21,7 @@ def mid_point(lineEdit: QPlainTextEdit, func, a: float, b: float, sigma: float, 
     lineEdit.appendPlainText('Запущен метод средней точки. '
                              'Интервал: [{}, {}]; sigma = {}; epsilon = {}'.format(a, b, sigma, epsilon))
     iter_count = 0
-    lineEdit.appendPlainText("Начало работы алгоритма.\nInterval = [{}, {}], epsilon = {}, sigma = {}".format(
+    lineEdit.appendPlainText("Начало работы алгоритма.\nИнтервал: [{}, {}], epsilon = {}, sigma = {}".format(
         round(a, ROUND_NUMBER),
         round(b, ROUND_NUMBER),
         epsilon,
@@ -40,14 +38,14 @@ def mid_point(lineEdit: QPlainTextEdit, func, a: float, b: float, sigma: float, 
         ))
         if df_x_0 > sigma:
             b = x_0
-            lineEdit.appendPlainText("df_x_0 > {}, Interval = [{}, {}]".format(
+            lineEdit.appendPlainText("df_x_0 > {}, Интервал: [{}, {}]".format(
                 sigma,
                 round(a, ROUND_NUMBER),
                 round(b, ROUND_NUMBER)
             ))
         elif df_x_0 < -sigma:
             a = x_0
-            lineEdit.appendPlainText("df_x_0 < {}, Interval = [{}, {}]".format(
+            lineEdit.appendPlainText("df_x_0 < {}, Интервал: [{}, {}]".format(
                 -sigma,
                 round(a, ROUND_NUMBER),
                 round(b, ROUND_NUMBER)

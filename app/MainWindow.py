@@ -1,9 +1,7 @@
 from enum import Enum
 from typing import Optional
-
-from PyQt5.QtWidgets import QMainWindow, QWidget, QGridLayout
+from PyQt5.QtWidgets import QGridLayout
 from matplotlib import pyplot as plt
-
 from app.Canvas import MplCanvas
 from build_plot import PlotBuilder
 from PyQt5.QtWidgets import QMainWindow
@@ -105,6 +103,7 @@ class MainWindow(QMainWindow):
             return
         plot_tmp = None
         target_func = lambda x: eval(self.textFunc)
+        x, fx, plot_tmp = None, None, None
         if self.algo == Algorithm.HALF_DIVIDE:
             x, fx, plot_tmp = self.plotBuilder.build_plot(
                 lineEdit=self.ui.logTextEdit,
@@ -175,6 +174,9 @@ class MainWindow(QMainWindow):
     def checkParams(self):
         if self.sigma >= 2 * self.epsilon:
             self.ui.logTextEdit.appendPlainText("Недопустимое сочетание параметров: sigma >= 2 * epsilon")
+            return False
+        if self.a >= self.b and self.algo != Algorithm.NEWTON_RAPFSON:
+            self.ui.logTextEdit.appendPlainText("Недопустимое значение параметров: a >= b")
             return False
         return True
 
