@@ -51,7 +51,7 @@ class PlotBuilder:
             x_0, f_x0 = method(lineEdit, target_function, b, sigma)
         range_x = 0
         if method is not newton_raphson:
-            range_x = int(abs(b - a) / 2)
+            range_x = float(abs(b - a) / 2)
         else:
             range_x = RANGE
 
