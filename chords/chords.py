@@ -32,17 +32,19 @@ def chords_method(lineEdit: QPlainTextEdit, func, a: float, b: float, sigma: flo
         elif f_x0 < -sigma:
             a = x_0
         elif abs(f_x0) <= sigma:
+            result = func(x_0)
             lineEdit.appendPlainText(
-                'Итерация: {}; Интервал: [{}, {}]; x_0 = {} - искомая точка минимума, процедура завершена.\n'.format(
-                    iter_count, round(a, round_number), round(b, round_number), round(x_0, round_number)))
-            return x_0, func(x_0)
+                'Итерация: {}; Интервал: [{}, {}]; x_0 = {} - искомая точка минимума, f(x) = {}, процедура завершена.\n'.format(
+                    iter_count, round(a, round_number), round(b, round_number), round(x_0, round_number), round(result, round_number)))
+            return x_0, result
 
         if (b - a) <= 2 * epsilon:
             x_0 = (a + b) / 2
+            result = func(x_0)
             lineEdit.appendPlainText(
-                'Итерация: {}; Интервал: [{}, {}]; x_0 = (a + b)/2 = {} - искомая точка минимума, процедура завершена.\n'.format(
-                    iter_count, round(a, round_number), round(b, round_number), round(x_0, round_number)))
-            return x_0, func(x_0)
+                'Итерация: {}; Интервал: [{}, {}]; x_0 = (a + b)/2 = {} - искомая точка минимума, f(x) = {}, процедура завершена.\n'.format(
+                    iter_count, round(a, round_number), round(b, round_number), round(x_0, round_number), round(result, round_number)))
+            return x_0, result
 
         lineEdit.appendPlainText('Итерация: {}, Интервал: [{}, {}]; epsilon = {}, (b - a) > 2*epsilon'.format(
             iter_count,
