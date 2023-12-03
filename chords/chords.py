@@ -3,13 +3,12 @@ from typing import Optional, Tuple
 from PyQt5.QtWidgets import QPlainTextEdit
 from scipy.misc import derivative
 
-from constants.constants import MAX_ITER_COUNT
+from constants.constants import MAX_ITER_COUNT, ROUND_NUMBER
 
-ROUND_NUMBER = 3
 DX = 1e-6
 
 
-def chords_method(lineEdit: QPlainTextEdit, func, a: float, b: float, sigma: float, epsilon: float, round_number=3) -> Optional[
+def chords_method(lineEdit: QPlainTextEdit, func, a: float, b: float, sigma: float, epsilon: float, round_number=ROUND_NUMBER) -> Optional[
     Tuple[Optional[float], Optional[float]]]:
     """Метод хорд"""
     delta = [a, b]

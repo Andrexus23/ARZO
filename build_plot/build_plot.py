@@ -4,7 +4,7 @@ from matplotlib import pyplot
 from numpy import linspace
 from PyQt5.QtWidgets import QPlainTextEdit
 
-from constants.constants import RANGE
+from constants.constants import RANGE, ROUND_NUMBER
 from half_divide import half_divide
 from golden_section import golden_section
 from mid_point import mid_point
@@ -19,7 +19,7 @@ class PlotBuilder:
                  dpi: int = 300,
                  round_number=3):
         """Конструктор"""
-        self.round_number = 3
+        self.round_number = ROUND_NUMBER
         self._plt: pyplot = plt
         self._dpi:int = dpi
 
