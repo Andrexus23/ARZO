@@ -3,7 +3,7 @@ from typing import Tuple, Optional
 
 from PyQt5.QtWidgets import QPlainTextEdit
 
-from constants.constants import MAX_ITER_COUNT
+from constants.constants import MAX_ITER_COUNT, ROUND_NUMBER
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 from scipy.misc import derivative
@@ -12,7 +12,6 @@ from scipy.misc import derivative
 # logging.basicConfig(format='%(message)s', filename=file, encoding='utf-8', level=logging.INFO)
 
 DX = 1e-6
-ROUND_NUMBER = 3
 
 
 

@@ -2,9 +2,7 @@ from typing import Tuple, Optional
 
 from PyQt5.QtWidgets import QPlainTextEdit
 
-from constants.constants import MAX_ITER_COUNT
-
-ROUND_NUMBER = 3
+from constants.constants import MAX_ITER_COUNT, ROUND_NUMBER
 
 
 def golden_section(lineEdit: QPlainTextEdit, func, a: float, b: float, epsilon: float) -> \

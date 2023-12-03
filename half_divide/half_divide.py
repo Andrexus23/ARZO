@@ -2,7 +2,7 @@ from typing import Tuple, Any, Optional
 
 from PyQt5.QtWidgets import QPlainTextEdit
 
-from constants.constants import MAX_ITER_COUNT
+from constants.constants import MAX_ITER_COUNT, ROUND_NUMBER
 
 
 def half_divide(
@@ -10,7 +10,7 @@ def half_divide(
         func: Any,
         a: float, b: float,
         sigma: float, epsilon: float,
-        round_number=3,
+        round_number=ROUND_NUMBER,
 ) -> Tuple[Optional[float], Optional[float]]:
     """Метод половинного деления"""
     lineEdit.appendPlainText('Запущен метод половинного сечения. '
