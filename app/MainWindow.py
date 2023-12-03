@@ -171,7 +171,7 @@ class MainWindow(QMainWindow):
         self.plotWindow.show()
 
     def checkParams(self):
-        if self.sigma >= 2 * self.epsilon:
+        if self.sigma >= 2 * self.epsilon and self.algo not in [Algorithm.GOLD_SECTION, Algorithm.NEWTON_RAPFSON]:
             self.ui.logTextEdit.appendPlainText("Недопустимое сочетание параметров: sigma >= 2 * epsilon")
             return False
         if self.a >= self.b and self.algo != Algorithm.NEWTON_RAPFSON:
